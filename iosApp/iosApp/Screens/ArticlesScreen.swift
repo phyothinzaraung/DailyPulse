@@ -1,5 +1,5 @@
 //
-//  ArticleScreen.swift
+//  ArticlesScreen.swift
 //  iosApp
 //
 //  Created by Phyo Thinzar Aung on 30/01/2025.
@@ -9,30 +9,31 @@
 import SwiftUI
 import shared
 
-extension ArticleScreen {
+extension ArticlesScreen{
     
     @MainActor
-    class ArticlesViewModelWrapper: ObservableObject {
+    class ArticlesViewModelWrapper: ObservableObject{
         let articlesViewModel: ArticlesViewModel
         
-        init() {
+        init(){
             articlesViewModel = ArticlesViewModel()
-            articlesState = articlesViewModel.articlesState.value
+            articlesState = articlesViewModel.articlesStates.value
         }
         
         @Published var articlesState: ArticlesState
         
         func startObserving(){
-            Task {
-                for await articlesS in articlesViewModel.articlesState{
+            Task{
+                for await articlesS in articlesViewModel.articlesStates{
                     self.articlesState = articlesS
                 }
             }
         }
     }
+    
 }
 
-struct ArticleScreen: View {
+struct ArticlesScreen: View {
     
     @ObservedObject private(set) var viewModel: ArticlesViewModelWrapper
     
@@ -48,16 +49,15 @@ struct ArticleScreen: View {
                 ErrorMessage(message: error)
             }
             
-            if(!viewModel.articlesState.articles.isEmpty){
+            if (!viewModel.articlesState.articles.isEmpty){
                 ScrollView{
                     LazyVStack(spacing: 10){
-                        ForEach(viewModel.articlesState.articles, id: \.self){ article in
+                        ForEach(viewModel.articlesState.articles, id: \.self){article in
                             ArticleItemView(article: article)
                         }
                     }
                 }
             }
-            
         }.onAppear{
             self.viewModel.startObserving()
         }
@@ -77,21 +77,23 @@ struct ArticleItemView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
-            AsyncImage(url: URL(string: article.image)){ phase in
+            AsyncImage(url: URL(string: article.image)){phase in
                 if phase.image != nil{
                     phase.image!
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                } else if phase.error != nil{
+                }else if phase.error != nil{
                     Text("Image Load Error")
-                } else{
+                }else{
                     ProgressView()
                 }
             }
+            
             Text(article.title)
                 .font(.title)
                 .fontWeight(.bold)
-            Text(article.description)
+            
+            Text(article.desc)
             Text(article.date).frame(maxWidth: .infinity, alignment: .trailing).foregroundStyle(.gray)
         }
         .padding(16)

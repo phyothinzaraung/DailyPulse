@@ -11,8 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -31,12 +35,13 @@ import com.phyo.dailypulse.articles.ArticlesViewModel
 
 @Composable
 fun ArticlesScreen(
+    onAboutButtonClick: () -> Unit,
     articlesViewModel: ArticlesViewModel
 ) {
     val articlesState = articlesViewModel.articlesStates.collectAsState()
     
     Column { 
-        AppBar()
+        AppBar(onAboutButtonClick)
         if (articlesState.value.loading)
             Loader()
         if (articlesState.value.error != null)
@@ -48,9 +53,17 @@ fun ArticlesScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBar() {
+fun AppBar(onAboutButtonClick: () -> Unit) {
     TopAppBar(
-        title = { Text(text = "Articles") }
+        title = { Text(text = "Articles") },
+        actions = {
+            IconButton(onClick = onAboutButtonClick) {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "About Device Button"
+                )
+            }
+        }
     )
 }
 
@@ -79,7 +92,7 @@ fun ArticleItemView(article: Article, modifier: Modifier = Modifier) {
             style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = article.description)
+        Text(text = article.desc)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = article.date,
