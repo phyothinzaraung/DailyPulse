@@ -1,4 +1,4 @@
-package com.phyo.dailypulse.articles
+package com.phyo.dailypulse.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package com.phyo.dailypulse.articles
+package com.phyo.dailypulse.application
 
 data class Article (
     val title: String,

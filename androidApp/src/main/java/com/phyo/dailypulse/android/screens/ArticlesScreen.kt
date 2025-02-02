@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.phyo.dailypulse.articles.Article
-import com.phyo.dailypulse.articles.ArticlesViewModel
+import com.phyo.dailypulse.application.Article
+import com.phyo.dailypulse.data.ArticlesViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

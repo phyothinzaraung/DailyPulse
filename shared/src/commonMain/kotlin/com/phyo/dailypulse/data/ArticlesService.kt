@@ -1,4 +1,4 @@
-package com.phyo.dailypulse.articles
+package com.phyo.dailypulse.data
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

@@ -1,4 +1,6 @@
-package com.phyo.dailypulse.articles
+package com.phyo.dailypulse.presentation
+
+import com.phyo.dailypulse.application.Article
 
 data class ArticlesState(
     val articles: List<Article> = listOf(),

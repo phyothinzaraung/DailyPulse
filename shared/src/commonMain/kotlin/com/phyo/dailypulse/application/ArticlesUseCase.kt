@@ -1,5 +1,7 @@
-package com.phyo.dailypulse.articles
+package com.phyo.dailypulse.application
 
+import com.phyo.dailypulse.data.ArticleRaw
+import com.phyo.dailypulse.data.ArticlesService
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
