@@ -1,4 +1,4 @@
-# KMM News App
+# DailyPulse - News App
 
 This is a Kotlin Multiplatform Mobile (KMM) project that fetches and displays news data from [NewsAPI.org](https://newsapi.org). The app is designed to work on both Android and iOS platforms using shared business logic.
 
